@@ -470,13 +470,14 @@ class LoggedInForm extends Component {
 	}
 
 	getRedirectionTarget() {
-		const { partnerId, siteSlug } = this.props;
+		const { partnerId, siteId, siteSlug } = this.props;
 
 		// Redirect sites hosted on Pressable with a partner plan to some URL.
 		// 51652 is a testing partner ID.
 		if ( 49640 === partnerId || 51652 === partnerId ) {
-			return '/me';
+			return '/start/pressable-nux?blogid=' + siteId;
 		}
+
 		return PLANS_PAGE + siteSlug;
 	}
 
@@ -590,6 +591,7 @@ export default connect(
 			isFetchingAuthorizationSite: isRequestingSite( state, siteId ),
 			isFetchingSites: isRequestingSites( state ),
 			redirectAfterAuth: getJetpackConnectRedirectAfterAuth( state ),
+			siteId,
 			siteSlug,
 			user: getCurrentUser( state ),
 			userAlreadyConnected: getUserAlreadyConnected( state ),
