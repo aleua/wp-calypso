@@ -65,11 +65,18 @@ class Banner extends Component {
 	};
 
 	getHref() {
-		const { href, feature, siteSlug } = this.props;
+		const { href, feature, plan, siteSlug } = this.props;
 
+		// rewrite with `addQueryArgs` from `lib/route`
 		if ( ! href && siteSlug ) {
+			if ( feature && plan ) {
+				return `/plans/${ siteSlug }?feature=${ feature }?plan=${ plan }`;
+			}
 			if ( feature ) {
 				return `/plans/${ siteSlug }?feature=${ feature }`;
+			}
+			if ( plan ) {
+				return `/plans/${ siteSlug }?plan=${ plan }`;
 			}
 			return `/plans/${ siteSlug }`;
 		}
